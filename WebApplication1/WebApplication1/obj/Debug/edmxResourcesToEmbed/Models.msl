@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QuanLySinhVienModelStoreContainer" CdmEntityContainer="QuanLySinhVienEntities">
+    <EntitySetMapping Name="Diems">
+      <EntityTypeMapping TypeName="QuanLySinhVienModel.Diem">
+        <MappingFragment StoreEntitySet="Diem">
+          <ScalarProperty Name="DiemID" ColumnName="DiemID" />
+          <ScalarProperty Name="SinhVienID" ColumnName="SinhVienID" />
+          <ScalarProperty Name="MonHocID" ColumnName="MonHocID" />
+          <ScalarProperty Name="DiemTongKet" ColumnName="DiemTongKet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MonHocs">
+      <EntityTypeMapping TypeName="QuanLySinhVienModel.MonHoc">
+        <MappingFragment StoreEntitySet="MonHoc">
+          <ScalarProperty Name="MonHocID" ColumnName="MonHocID" />
+          <ScalarProperty Name="Ten" ColumnName="Ten" />
+          <ScalarProperty Name="SoTinChi" ColumnName="SoTinChi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SinhViens">
+      <EntityTypeMapping TypeName="QuanLySinhVienModel.SinhVien">
+        <MappingFragment StoreEntitySet="SinhVien">
+          <ScalarProperty Name="SinhVienID" ColumnName="SinhVienID" />
+          <ScalarProperty Name="Lop" ColumnName="Lop" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

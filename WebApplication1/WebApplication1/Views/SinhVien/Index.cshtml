@@ -1,0 +1,81 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<WebApplication1.SinhVien>
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center><h2>DANH SÁCH SINH VIÊN</h2></center>
+
+<center>
+    <p>
+        @Html.ActionLink("Thêm mới", "Create", "SinhVien")
+        @using (Html.BeginForm())
+        {
+        <p>
+            Nhập tên sinh viên: @Html.TextBox("ten")
+            Nhập mã sinh viên: @Html.TextBox("maSV")
+            <input type="submit" value="Tìm kiếm" />
+        </p>
+    }
+        </p>
+    </center>
+    <table class="table">
+        <tr>
+            <th>
+                STT
+            </th>
+            <th>
+                Mã sinh viên
+            </th>
+            <th>
+                Lớp
+            </th>
+            <th>
+                Họ tên
+            </th>
+
+            <th></th>
+        </tr>
+        @{
+            var count = 0;
+        }
+        @foreach (var item in Model)
+        {
+            count += 1;
+            <tr>
+                <td>
+                    @count
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SinhVienID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lop)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoTen)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.SinhVienID }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.SinhVienID })|
+                    @Html.ActionLink("Điểm", "Score", new { id = item.SinhVienID })
+                </td>
+            </tr>
+        }
+
+    </table>
+    <div class="col-md-12 text-center clear-both">
+        @Html.PagedListPager(Model, sotrang => Url.Action("Index", new { page = sotrang }))
+    </div>
+    <p>
+        @if (TempData["message"] != null)
+        {
+            <center>
+        <p style="color:red; font:bold"> @TempData["message"] </p></center>
+
+         }
+     </p>

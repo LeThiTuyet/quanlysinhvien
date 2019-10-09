@@ -1,0 +1,62 @@
+﻿@model IEnumerable<WebApplication1.BangDiem>
+
+@{
+    ViewBag.Title = "Bảng điểm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center><h2>BẢNG ĐIỂM</h2></center>
+
+<h3>Họ tên: @ViewBag.Message</h3>
+<table class="table">
+    <tr>
+        <th>
+            STT
+        </th>
+        <th>
+            Tên môn học
+        </th>
+        <th>
+            Điểm cuối kì
+        </th>
+        <th>
+            Số tín chỉ
+        </th>
+    </tr>
+    @{
+        var count = 0;
+        var avg = 0.0;
+        var sotinchi = 0;
+    }
+    @foreach (var item in Model)
+    {
+        count += 1;
+        avg += item.diemTinChi;
+        sotinchi += item.soTinChi;
+        <tr>
+            <td>
+                @count
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ten)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.diemTongKet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.soTinChi)
+            </td>
+        </tr>
+     }
+
+</table>
+
+@{ 
+    var result = (sotinchi != 0 ? Math.Round((avg / sotinchi), 2, MidpointRounding.AwayFromZero) : 0.0);
+}
+<div>
+    <p>Điểm trung bình: @result</p>
+</div>
+<div>
+    @Html.ActionLink("Quay lại", "Index")
+</div>

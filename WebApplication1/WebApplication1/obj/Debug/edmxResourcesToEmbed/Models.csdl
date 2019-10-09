@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLySinhVienModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Diem">
+    <Key>
+      <PropertyRef Name="DiemID" />
+    </Key>
+    <Property Name="DiemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SinhVienID" Type="Int32" Nullable="false" />
+    <Property Name="MonHocID" Type="Int32" Nullable="false" />
+    <Property Name="DiemTongKet" Type="Double" Nullable="false" />
+    <NavigationProperty Name="MonHoc" Relationship="Self.FK__Diem__MonHocID__3D5E1FD2" FromRole="Diem" ToRole="MonHoc" />
+    <NavigationProperty Name="SinhVien" Relationship="Self.FK__Diem__SinhVienID__3C69FB99" FromRole="Diem" ToRole="SinhVien" />
+  </EntityType>
+  <EntityType Name="MonHoc">
+    <Key>
+      <PropertyRef Name="MonHocID" />
+    </Key>
+    <Property Name="MonHocID" Type="Int32" Nullable="false" />
+    <Property Name="Ten" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SoTinChi" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Diems" Relationship="Self.FK__Diem__MonHocID__3D5E1FD2" FromRole="MonHoc" ToRole="Diem" />
+  </EntityType>
+  <EntityType Name="SinhVien">
+    <Key>
+      <PropertyRef Name="SinhVienID" />
+    </Key>
+    <Property Name="SinhVienID" Type="Int32" Nullable="false" />
+    <Property Name="Lop" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Diems" Relationship="Self.FK__Diem__SinhVienID__3C69FB99" FromRole="SinhVien" ToRole="Diem" />
+  </EntityType>
+  <Association Name="FK__Diem__MonHocID__3D5E1FD2">
+    <End Role="MonHoc" Type="Self.MonHoc" Multiplicity="1" />
+    <End Role="Diem" Type="Self.Diem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MonHoc">
+        <PropertyRef Name="MonHocID" />
+      </Principal>
+      <Dependent Role="Diem">
+        <PropertyRef Name="MonHocID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Diem__SinhVienID__3C69FB99">
+    <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="1" />
+    <End Role="Diem" Type="Self.Diem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SinhVien">
+        <PropertyRef Name="SinhVienID" />
+      </Principal>
+      <Dependent Role="Diem">
+        <PropertyRef Name="SinhVienID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLySinhVienEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Diems" EntityType="Self.Diem" />
+    <EntitySet Name="MonHocs" EntityType="Self.MonHoc" />
+    <EntitySet Name="SinhViens" EntityType="Self.SinhVien" />
+    <AssociationSet Name="FK__Diem__MonHocID__3D5E1FD2" Association="Self.FK__Diem__MonHocID__3D5E1FD2">
+      <End Role="MonHoc" EntitySet="MonHocs" />
+      <End Role="Diem" EntitySet="Diems" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Diem__SinhVienID__3C69FB99" Association="Self.FK__Diem__SinhVienID__3C69FB99">
+      <End Role="SinhVien" EntitySet="SinhViens" />
+      <End Role="Diem" EntitySet="Diems" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

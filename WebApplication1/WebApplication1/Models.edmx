@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QuanLySinhVienModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Diem">
+          <Key>
+            <PropertyRef Name="DiemID" />
+          </Key>
+          <Property Name="DiemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SinhVienID" Type="int" Nullable="false" />
+          <Property Name="MonHocID" Type="int" Nullable="false" />
+          <Property Name="DiemTongKet" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MonHoc">
+          <Key>
+            <PropertyRef Name="MonHocID" />
+          </Key>
+          <Property Name="MonHocID" Type="int" Nullable="false" />
+          <Property Name="Ten" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="SoTinChi" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SinhVien">
+          <Key>
+            <PropertyRef Name="SinhVienID" />
+          </Key>
+          <Property Name="SinhVienID" Type="int" Nullable="false" />
+          <Property Name="Lop" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="HoTen" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Diem__MonHocID__3D5E1FD2">
+          <End Role="MonHoc" Type="Self.MonHoc" Multiplicity="1" />
+          <End Role="Diem" Type="Self.Diem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonHoc">
+              <PropertyRef Name="MonHocID" />
+            </Principal>
+            <Dependent Role="Diem">
+              <PropertyRef Name="MonHocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Diem__SinhVienID__3C69FB99">
+          <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="1" />
+          <End Role="Diem" Type="Self.Diem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SinhVien">
+              <PropertyRef Name="SinhVienID" />
+            </Principal>
+            <Dependent Role="Diem">
+              <PropertyRef Name="SinhVienID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuanLySinhVienModelStoreContainer">
+          <EntitySet Name="Diem" EntityType="Self.Diem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonHoc" EntityType="Self.MonHoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SinhVien" EntityType="Self.SinhVien" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Diem__MonHocID__3D5E1FD2" Association="Self.FK__Diem__MonHocID__3D5E1FD2">
+            <End Role="MonHoc" EntitySet="MonHoc" />
+            <End Role="Diem" EntitySet="Diem" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Diem__SinhVienID__3C69FB99" Association="Self.FK__Diem__SinhVienID__3C69FB99">
+            <End Role="SinhVien" EntitySet="SinhVien" />
+            <End Role="Diem" EntitySet="Diem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuanLySinhVienModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Diem">
+          <Key>
+            <PropertyRef Name="DiemID" />
+          </Key>
+          <Property Name="DiemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SinhVienID" Type="Int32" Nullable="false" />
+          <Property Name="MonHocID" Type="Int32" Nullable="false" />
+          <Property Name="DiemTongKet" Type="Double" Nullable="false" />
+          <NavigationProperty Name="MonHoc" Relationship="Self.FK__Diem__MonHocID__3D5E1FD2" FromRole="Diem" ToRole="MonHoc" />
+          <NavigationProperty Name="SinhVien" Relationship="Self.FK__Diem__SinhVienID__3C69FB99" FromRole="Diem" ToRole="SinhVien" />
+        </EntityType>
+        <EntityType Name="MonHoc">
+          <Key>
+            <PropertyRef Name="MonHocID" />
+          </Key>
+          <Property Name="MonHocID" Type="Int32" Nullable="false" />
+          <Property Name="Ten" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SoTinChi" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Diems" Relationship="Self.FK__Diem__MonHocID__3D5E1FD2" FromRole="MonHoc" ToRole="Diem" />
+        </EntityType>
+        <EntityType Name="SinhVien">
+          <Key>
+            <PropertyRef Name="SinhVienID" />
+          </Key>
+          <Property Name="SinhVienID" Type="Int32" Nullable="false" />
+          <Property Name="Lop" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Diems" Relationship="Self.FK__Diem__SinhVienID__3C69FB99" FromRole="SinhVien" ToRole="Diem" />
+        </EntityType>
+        <Association Name="FK__Diem__MonHocID__3D5E1FD2">
+          <End Role="MonHoc" Type="Self.MonHoc" Multiplicity="1" />
+          <End Role="Diem" Type="Self.Diem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonHoc">
+              <PropertyRef Name="MonHocID" />
+            </Principal>
+            <Dependent Role="Diem">
+              <PropertyRef Name="MonHocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Diem__SinhVienID__3C69FB99">
+          <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="1" />
+          <End Role="Diem" Type="Self.Diem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SinhVien">
+              <PropertyRef Name="SinhVienID" />
+            </Principal>
+            <Dependent Role="Diem">
+              <PropertyRef Name="SinhVienID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuanLySinhVienEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Diems" EntityType="Self.Diem" />
+          <EntitySet Name="MonHocs" EntityType="Self.MonHoc" />
+          <EntitySet Name="SinhViens" EntityType="Self.SinhVien" />
+          <AssociationSet Name="FK__Diem__MonHocID__3D5E1FD2" Association="Self.FK__Diem__MonHocID__3D5E1FD2">
+            <End Role="MonHoc" EntitySet="MonHocs" />
+            <End Role="Diem" EntitySet="Diems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Diem__SinhVienID__3C69FB99" Association="Self.FK__Diem__SinhVienID__3C69FB99">
+            <End Role="SinhVien" EntitySet="SinhViens" />
+            <End Role="Diem" EntitySet="Diems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QuanLySinhVienModelStoreContainer" CdmEntityContainer="QuanLySinhVienEntities">
+          <EntitySetMapping Name="Diems">
+            <EntityTypeMapping TypeName="QuanLySinhVienModel.Diem">
+              <MappingFragment StoreEntitySet="Diem">
+                <ScalarProperty Name="DiemID" ColumnName="DiemID" />
+                <ScalarProperty Name="SinhVienID" ColumnName="SinhVienID" />
+                <ScalarProperty Name="MonHocID" ColumnName="MonHocID" />
+                <ScalarProperty Name="DiemTongKet" ColumnName="DiemTongKet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonHocs">
+            <EntityTypeMapping TypeName="QuanLySinhVienModel.MonHoc">
+              <MappingFragment StoreEntitySet="MonHoc">
+                <ScalarProperty Name="MonHocID" ColumnName="MonHocID" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="SoTinChi" ColumnName="SoTinChi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SinhViens">
+            <EntityTypeMapping TypeName="QuanLySinhVienModel.SinhVien">
+              <MappingFragment StoreEntitySet="SinhVien">
+                <ScalarProperty Name="SinhVienID" ColumnName="SinhVienID" />
+                <ScalarProperty Name="Lop" ColumnName="Lop" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

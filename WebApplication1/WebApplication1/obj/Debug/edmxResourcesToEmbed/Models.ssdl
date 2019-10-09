@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLySinhVienModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Diem">
+    <Key>
+      <PropertyRef Name="DiemID" />
+    </Key>
+    <Property Name="DiemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SinhVienID" Type="int" Nullable="false" />
+    <Property Name="MonHocID" Type="int" Nullable="false" />
+    <Property Name="DiemTongKet" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MonHoc">
+    <Key>
+      <PropertyRef Name="MonHocID" />
+    </Key>
+    <Property Name="MonHocID" Type="int" Nullable="false" />
+    <Property Name="Ten" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="SoTinChi" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SinhVien">
+    <Key>
+      <PropertyRef Name="SinhVienID" />
+    </Key>
+    <Property Name="SinhVienID" Type="int" Nullable="false" />
+    <Property Name="Lop" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="HoTen" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Diem__MonHocID__3D5E1FD2">
+    <End Role="MonHoc" Type="Self.MonHoc" Multiplicity="1" />
+    <End Role="Diem" Type="Self.Diem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MonHoc">
+        <PropertyRef Name="MonHocID" />
+      </Principal>
+      <Dependent Role="Diem">
+        <PropertyRef Name="MonHocID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Diem__SinhVienID__3C69FB99">
+    <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="1" />
+    <End Role="Diem" Type="Self.Diem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SinhVien">
+        <PropertyRef Name="SinhVienID" />
+      </Principal>
+      <Dependent Role="Diem">
+        <PropertyRef Name="SinhVienID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLySinhVienModelStoreContainer">
+    <EntitySet Name="Diem" EntityType="Self.Diem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MonHoc" EntityType="Self.MonHoc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SinhVien" EntityType="Self.SinhVien" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Diem__MonHocID__3D5E1FD2" Association="Self.FK__Diem__MonHocID__3D5E1FD2">
+      <End Role="MonHoc" EntitySet="MonHoc" />
+      <End Role="Diem" EntitySet="Diem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Diem__SinhVienID__3C69FB99" Association="Self.FK__Diem__SinhVienID__3C69FB99">
+      <End Role="SinhVien" EntitySet="SinhVien" />
+      <End Role="Diem" EntitySet="Diem" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
